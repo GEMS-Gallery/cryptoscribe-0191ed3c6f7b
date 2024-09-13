@@ -5,13 +5,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const postForm = document.getElementById('post-form');
     const postsContainer = document.getElementById('posts');
 
-    // Initialize TinyMCE
-    tinymce.init({
-        selector: '#post-body',
-        plugins: 'link image code',
-        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | link image | code'
-    });
-
     newPostBtn.addEventListener('click', () => {
         postForm.style.display = postForm.style.display === 'none' ? 'block' : 'none';
     });
@@ -20,12 +13,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         e.preventDefault();
         const title = document.getElementById('post-title').value;
         const author = document.getElementById('post-author').value;
-        const body = tinymce.get('post-body').getContent();
+        const body = document.getElementById('post-body').value;
 
         try {
             await backend.createPost(title, body, author);
             postForm.reset();
-            tinymce.get('post-body').setContent('');
             postForm.style.display = 'none';
             await fetchAndDisplayPosts();
         } catch (error) {
