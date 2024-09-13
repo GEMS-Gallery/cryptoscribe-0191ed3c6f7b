@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #1a8917;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0f730c;
+        }
+        #post-form {
+            display: none;
+            margin-bottom: 40px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        .post {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        .post h2 {
+            margin-bottom: 10px;
+        }
+        .post-meta {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Crypto Blog</h1>
+        <button id="new-post-btn">New Post</button>
+    </header>
+
+    <form id="post-form">
+        <input type="text" id="post-title" placeholder="Title" required>
+        <input type="text" id="post-author" placeholder="Author" required>
+        <textarea id="post-body" placeholder="Write your post here..."></textarea>
+        <button type="submit">Publish</button>
+    </form>
+
+    <div id="posts"></div>
+
+    <script type="module" src="index.js"></script>
+</body>
+</html>
