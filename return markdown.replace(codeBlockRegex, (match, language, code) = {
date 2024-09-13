@@ -1,0 +1,7 @@
+return `<pre><code class="language-${language || ''}">${code.trim()}</code></pre>`;
+        });
+    }
+
+    // Initial fetch of posts
+    await fetchAndDisplayPosts();
+});
