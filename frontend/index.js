@@ -13,12 +13,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         editor = monaco.editor.create(document.getElementById('editor'), {
             value: '',
             language: 'markdown',
-            theme: 'vs-light'
+            theme: 'vs-light',
+            minimap: { enabled: false },
+            automaticLayout: true
         });
     });
 
     newPostBtn.addEventListener('click', () => {
         postForm.style.display = postForm.style.display === 'none' ? 'block' : 'none';
+        if (postForm.style.display === 'block') {
+            editor.layout();
+        }
     });
 
     postForm.addEventListener('submit', async (e) => {
@@ -26,6 +31,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const title = document.getElementById('post-title').value;
         const author = document.getElementById('post-author').value;
         const body = editor.getValue();
+
+        if (!title || !author || !body) {
+            alert('Please fill in all fields');
+            return;
+        }
 
         try {
             await backend.createPost(title, body, author);
@@ -35,6 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             await fetchAndDisplayPosts();
         } catch (error) {
             console.error('Error creating post:', error);
+            alert('Failed to create post. Please try again.');
         }
     });
 
@@ -55,11 +66,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             hljs.highlightAll();
         } catch (error) {
             console.error('Error fetching posts:', error);
+            postsContainer.innerHTML = '<p>Failed to load posts. Please try again later.</p>';
         }
     }
 
     function renderMarkdown(markdown) {
-        // This is a simple markdown renderer. For a full markdown parser, consider using a library like marked.js
         const codeBlockRegex = new RegExp(`\`\`\`(\\w+)?\\n([\\s\\S]*?)\`\`\``, 'g');
         return markdown.replace(codeBlockRegex, (match, language, code) => {
             return `<pre><code class="language-${language || ''}">${code.trim()}</code></pre>`;
